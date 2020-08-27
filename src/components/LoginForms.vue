@@ -50,10 +50,10 @@ export default {
         };
 
         const { data } = await loginUser(idInfo);
-        const { token } = data;
-        console.log(data.token);
+        const { token, user } = data;
+
         this.$store.commit('setToken', token);
-        this.$store.commit('setUsername', data.user.nickname);
+        this.$store.commit('setUsername', user.nickname);
         this.$router.push('/main');
         // this.logMessage = `${data.user.nickname}님 환영합니다.`;
       } catch (error) {
