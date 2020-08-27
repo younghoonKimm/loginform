@@ -48,9 +48,11 @@ export default {
           username: this.username,
           password: this.password,
         };
-        this.$router.push('/main');
+
         const { data } = await loginUser(idInfo);
-        this.logMessage = `${data.user.nickname}님 환영합니다.`;
+        this.$store.commit('setUsername', data.user.nickname);
+        this.$router.push('/main');
+        // this.logMessage = `${data.user.nickname}님 환영합니다.`;
       } catch (error) {
         console.log(error.response.data);
         this.logMessage = error.response.data;
