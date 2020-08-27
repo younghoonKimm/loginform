@@ -48,12 +48,14 @@ export default {
           username: this.username,
           password: this.password,
         };
-
-        const { data } = await loginUser(idInfo);
-        const { token, user } = data;
-
-        this.$store.commit('setToken', token);
-        this.$store.commit('setUsername', user.nickname);
+        await this.$store.dispatch('LOGIN', idInfo);
+        // const { data } = await loginUser(idInfo);
+        // const { token, user } = data;
+        // // save at cookie
+        // saveAuthToCookie(token);
+        // saveUserToCookie(user.nickname);
+        // this.$store.commit('setToken', token);
+        // this.$store.commit('setUsername', user.nickname);
         this.$router.push('/main');
         // this.logMessage = `${data.user.nickname}님 환영합니다.`;
       } catch (error) {

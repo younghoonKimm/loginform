@@ -1,14 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {
+  saveAuthToCookie,
+  saveUserToCookie,
+  getAuthFromCookie,
+  getUserFromCookie,
+} from '@/utils/cookies';
+import { loginUser } from '@/api/index';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    username: '',
-    //현재 시점에선 토큰 값 필요
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imt4a20wOUBuYXZlci5jb20iLCJfaWQiOiI1ZjQ2NjM0ZTM0MTNiNjgxMmRmNmRmMzciLCJpYXQiOjE1OTg1MDU3NjksImV4cCI6MTYwNzE0NTc2OX0.zFiNZShWLFnulQi08AkYloLrFcd7LGCMCI0z04ozYSU',
+    username: getUserFromCookie() || '',
+    token: getAuthFromCookie() || '',
   },
   getters: {
     isLogin(state) {
@@ -24,6 +29,19 @@ export default new Vuex.Store({
     },
     setToken(state, token) {
       state.token = token;
+    },
+  },
+  actions: {
+    async LOGIN({ commit }, idInfo) {
+      const { data } = await loginUser(idInfo);
+      const { token, user } = data;
+      // save at cookie
+      saveAuthToCookie(token);
+      saveUserToCookie(user.nickname);
+      commit('setToken', token);
+      commit('setUsername', user.nickname);
+      //혹시 사용할 수 있으니 data를 return 시킴.
+      return data;
     },
   },
 });
