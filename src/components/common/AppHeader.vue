@@ -1,7 +1,7 @@
 <template>
   <header>
     <div>
-      <router-link to="/" class="logo">
+      <router-link :to="logoLink" class="logo">
         TIL
         <span>{{ $store.state.username }}</span>
       </router-link>
@@ -23,6 +23,9 @@ export default {
   computed: {
     isUserLogin() {
       return this.$store.getters.isLogin;
+    },
+    logoLink() {
+      return this.$store.getters.isLogin ? '/main' : '/login';
     },
   },
   methods: {
