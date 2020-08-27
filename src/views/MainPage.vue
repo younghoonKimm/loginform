@@ -2,7 +2,8 @@
   <div>
     <div class="main list-container contents">
       <h1 class="page-header">Today I Learned</h1>
-      <ul>
+      <div v-if="isLoading">로딩중</div>
+      <ul v-else>
         <PostListItem
           v-for="postItem in postItems"
           :key="postItem._id"
@@ -16,20 +17,25 @@
 <script>
 import { fetchPosts } from '@/api/index';
 import PostListItem from '@/components/posts/PostListItem';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 export default {
   data() {
     return {
       postItems: [],
+      isLoading: false,
     };
   },
   components: {
     PostListItem,
+    LoadingSpinner,
   },
   methods: {
     async fetchData() {
+      this.isLoading = true;
       const { data } = await fetchPosts();
       this.postItems = data.posts;
+      this.isLoading = false;
       console.log(this.postItems);
     },
   },
