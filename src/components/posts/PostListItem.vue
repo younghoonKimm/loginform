@@ -4,8 +4,8 @@
     <div class="post-contents">{{ postItem.contents }}</div>
     <div class="post-time">
       {{ postItem.createdAt }}
-      <i class="icon ion-md-create"></i>
-      <i class="icon ion-md-trash" @click="deletItem"></i>
+      <i class="icon ion-md-create" @click="fixItem"></i>
+      <i class="icon ion-md-trash" @click="deleteItem"></i>
     </div>
   </li>
 </template>
@@ -20,11 +20,14 @@ export default {
     },
   },
   methods: {
-    async deletItem() {
+    async deleteItem() {
       if (confirm('wanna delete?')) {
         await deletPosts(this.postItem._id);
         this.$emit('refresh');
       }
+    },
+    fixItem() {
+      this.$router.push(`/post/${this.postItem._id}`);
     },
   },
 };
