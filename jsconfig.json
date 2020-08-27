@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": [
+        "./src/*" //절대경로
+      ]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
