@@ -48,6 +48,7 @@ export default {
           username: this.username,
           password: this.password,
         };
+        //await 무조건 기입할 것
         await this.$store.dispatch('LOGIN', idInfo);
         // const { data } = await loginUser(idInfo);
         // const { token, user } = data;
