@@ -1,11 +1,16 @@
 <template>
-  <div>
-    PostAddPage
+  <div class="form-container">
+    <PostAddForm></PostAddForm>
   </div>
 </template>
 
 <script>
-export default {};
+import PostAddForm from '@/components/posts/PostAddForm';
+export default {
+  components: {
+    PostAddForm,
+  },
+};
 </script>
 
 <style></style>

@@ -6,7 +6,7 @@ import {
   getAuthFromCookie,
   getUserFromCookie,
 } from '@/utils/cookies';
-import { loginUser } from '@/api/index';
+import { loginUser } from '@/api/auth';
 
 Vue.use(Vuex);
 
@@ -40,7 +40,7 @@ export default new Vuex.Store({
       saveUserToCookie(user.nickname);
       commit('setToken', token);
       commit('setUsername', user.nickname);
-      //혹시 사용할 수 있으니 data를 return 시킴.
+      // return 넣지 않아도 promise 반환
       return data;
     },
   },

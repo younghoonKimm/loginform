@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { loginUser } from '@/api/index';
 import { validateEmail } from '@/utils/validation';
 
 export default {
